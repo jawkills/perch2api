@@ -72,6 +72,22 @@ function userContent(content) {
   return parts;
 }
 
+const NL = String.fromCharCode(10, 10);
+
+/**
+ * Build the upstream system message: gate prefix, boilerplate notice, the
+ * caller instructions, then the identity guard last (last line wins).
+ */
+export function composeSystem(callerText, prefixMode = config.systemPrefix) {
+  const parts = [];
+  if (prefixMode === 'prepend' && PERCH_SYSTEM_PREFIX) parts.push(PERCH_SYSTEM_PREFIX);
+  if (config.gateNotice) parts.push(config.gateNotice);
+  const caller = (callerText || '').trim();
+  if (caller) parts.push(caller);
+  if (config.identityGuard) parts.push(config.identityGuard);
+  return parts.join(NL).trim();
+}
+
 export function normalizeMessages(messages, { prefixMode = config.systemPrefix } = {}) {
   const out = [];
   let sawSystem = false;
@@ -80,11 +96,7 @@ export function normalizeMessages(messages, { prefixMode = config.systemPrefix }
     const role = message?.role;
     if (role === 'system' || role === 'developer') {
       sawSystem = true;
-      const text = textFromContent(message.content);
-      out.push({
-        role: 'system',
-        content: prefixMode === 'prepend' ? `${PERCH_SYSTEM_PREFIX}\n\n${text}`.trim() : text,
-      });
+      out.push({ role: 'system', content: composeSystem(textFromContent(message.content), prefixMode) });
       continue;
     }
     if (role === 'user') {
@@ -118,14 +130,10 @@ export function normalizeMessages(messages, { prefixMode = config.systemPrefix }
     if (text) out.push({ role: 'user', content: text });
   }
 
-  if (!sawSystem && prefixMode === 'prepend' && out.length) {
-    // No caller system prompt: pair the gate prefix with a neutral instruction so
-    // the model does not fall back to the Perch persona in the prefix. Perch only
-    // enforces Saffron itself on the chat/worker lanes; config.lane defaults to
-    // 'code', where the caller's instruction wins.
-    out.unshift({ role: 'system', content: `${PERCH_SYSTEM_PREFIX}
-
-${config.neutralSystem}` });
+  if (!sawSystem && out.length && prefixMode === 'prepend') {
+    // No caller system prompt: still neutralise the prefix so the model does not
+    // fall back to the persona that the required text names.
+    out.unshift({ role: 'system', content: composeSystem(config.neutralSystem, prefixMode) });
   }
   return out;
 }
