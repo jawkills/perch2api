@@ -14,7 +14,7 @@ mint a turn ticket unless named that way, and none spend more than a handful of 
 | `cli-hook.mjs` | fetch interceptor: captures real CLI traffic without a TLS proxy |
 | `probe-read.mjs` / `probe-select.mjs` | read-only session/config probing; tiers, pins, ticket necessity |
 | `probe-call.mjs` / `probe-gate.mjs` / `replay-matrix.mjs` | the `perch_surface_required` differential |
-| `bisect-prompt.mjs` / `bisect-marker.mjs` / `bisect-marker2.mjs` | narrows the required prefix (190 fails, 200 passes) |
+| `bisect-prompt.mjs` / `bisect-marker2.mjs` | narrows the required prefix (190 fails, 200 passes) |
 | `probe-tools.mjs` | tool definitions, tool-result follow-up turn, non-streaming |
 | `probe-qwen.mjs` / `probe-force.mjs` | model pin fields (`manualModelOptionId`) and silent substitution |
 | `probe-gate2.mjs` / `probe-ticket-gate.mjs` / `probe-lane-gate.mjs` | what the gate is NOT keyed on (surface, ticket, lane) |

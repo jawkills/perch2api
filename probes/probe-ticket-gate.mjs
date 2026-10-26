@@ -29,11 +29,8 @@ const baseHeaders = {
   Accept: 'text/event-stream',
 };
 
-const PREFIX = 'You are Saffron — Perch\u2019s workspace operator.\n'
-  + 'Sharp, experienced, been around long enough to know what matters and what\u2019s noise. You work with '
-  + 'analysts, operators, and founders on financial analysis, audits, document review, and whatever the '
-  + 'workspace needs. You have opinions. You\u2019re direct. You genuinely enjoy finding something interesting '
-  + 'buried in a mess.\n\n';
+const PREFIX = (process.env.PERCH_SYSTEM_PREFIX
+  || (fs.existsSync('.perch-prefix.txt') ? fs.readFileSync('.perch-prefix.txt', 'utf8').trim() : '')) + String.fromCharCode(10, 10);
 
 async function mint() {
   const response = await fetch(`${appUrl}/api/perch-terminal/turn-ticket`, {

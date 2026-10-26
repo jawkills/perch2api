@@ -56,7 +56,7 @@ export const config = {
   userAgent: `perchai-cli/${process.env.PERCH_CLI_VERSION || '2.4.118'}`,
   locale: process.env.PERCH_LOCALE || 'en',
   clientSurface: process.env.PERCH_CLIENT_SURFACE || 'cli',
-  // OBSERVED: Perch attaches its "You are Saffron" operator prompt to the chat and
+  // OBSERVED: Perch attaches its operator persona prompt to the chat and
   // worker lanes, but not to `code`. Same request, same gate prefix, lane=code ->
   // the model answers as plain Qwen. Every lane still needs the prefix, so the
   // prefix stays; the lane is what keeps the persona out of the context.

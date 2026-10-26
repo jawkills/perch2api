@@ -236,11 +236,9 @@ first system message against a stored prefix (or a hash of it) of roughly 192–
 
 The required text is Perch's own operator preamble:
 
-> You are Saffron — Perch's workspace operator.
-> Sharp, experienced, been around long enough to know what matters and what's noise. You work with
-> analysts, operators, and founders on financial analysis, audits, document review, and whatever the
-> workspace needs. You have opinions. You're direct. You genuinely enjoy finding something interesting
-> buried in a mess.
+> (verbatim preamble omitted: it is Perch's text. Obtain it with
+> `node scripts/extract-prefix.mjs` from your own installation; the measured
+> requirement is in the bisect table above.)
 
 `src/perch-prefix.mjs` stores 361 characters (a clean paragraph boundary) and the gateway prepends it
 to the caller's system prompt. This satisfies the gate **and** leaves the caller's instructions

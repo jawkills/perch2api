@@ -117,7 +117,7 @@ outside the plan's pool fall back to the account default instead of erroring —
 
 ## Persona and lanes
 
-Perch attaches its own "You are Saffron - Perch's workspace operator" system prompt on the
+Perch attaches its own operator-persona system prompt on the
 `chat` and `worker` lanes, and the caller cannot override it (asking the model to drop the
 persona gets refused). The `code` lane does not get it, so the gateway defaults to
 `PERCH_LANE=code`: there the only persona is the 361-character gate prefix, and the caller's

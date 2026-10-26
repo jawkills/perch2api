@@ -21,11 +21,8 @@ const sessionPath = [
 const session = JSON.parse(fs.readFileSync(sessionPath, 'utf8'));
 const appUrl = (session.appUrl || 'https://app.perchai.app').replace(/\/+$/, '');
 
-const GATE = 'You are Saffron — Perch\u2019s workspace operator.\n'
-  + 'Sharp, experienced, been around long enough to know what matters and what\u2019s noise. You work with '
-  + 'analysts, operators, and founders on financial analysis, audits, document review, and whatever the '
-  + 'workspace needs. You have opinions. You\u2019re direct. You genuinely enjoy finding something interesting '
-  + 'buried in a mess.\n\n';
+const GATE = (process.env.PERCH_SYSTEM_PREFIX
+  || (fs.existsSync('.perch-prefix.txt') ? fs.readFileSync('.perch-prefix.txt', 'utf8').trim() : '')) + String.fromCharCode(10, 10);
 
 const QWEN = 'openrouter-qwen-qwen3-8-max-0902';
 const DEEPSEEK_STARTER = 'deepseek-flash-starter';

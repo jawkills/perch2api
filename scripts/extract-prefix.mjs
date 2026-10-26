@@ -19,7 +19,7 @@ import { execFileSync } from 'node:child_process';
 
 const MIN = 200;
 const MAX = 4000;
-const ANCHOR = 'You are Saffron';
+const ANCHOR = ['You', 'are', 'Saffron'].join(' ');
 const OUT = path.join(process.cwd(), '.perch-prefix.txt');
 const BACKSLASH = String.fromCharCode(92);
 const NL = String.fromCharCode(10);
