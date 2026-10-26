@@ -224,6 +224,20 @@ export async function pipeAsOpenAIStream({ res, id, created, modelName, call, in
 
   write(chunk({ role: 'assistant', content: '' }));
 
+  // Upstream can sit silent for tens of seconds on large contexts (55k+ tokens).
+  // Clients and proxies drop idle connections, so emit an SSE comment ping; it is
+  // legal between events and ignored by every OpenAI-compatible reader.
+  const beat = config.heartbeatMs > 0
+    ? setInterval(() => {
+      if (res.writableEnded || res.destroyed) {
+        clearInterval(beat);
+        return;
+      }
+      res.write(': keepalive\n\n');
+    }, config.heartbeatMs)
+    : null;
+  if (beat?.unref) beat.unref();
+
   const done = await call({
     onEvent: (event) => {
       switch (event.type) {
@@ -257,6 +271,7 @@ export async function pipeAsOpenAIStream({ res, id, created, modelName, call, in
       }
     },
   });
+  clearInterval(beat);
 
   const toolCalls = state.toolCalls.length ? state.toolCalls : normalizeToolCalls(done.toolCalls);
   if (toolCalls.length) {

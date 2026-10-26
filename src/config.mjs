@@ -79,7 +79,9 @@ export const config = {
   systemPrefix: (process.env.PERCH_SYSTEM_PREFIX_MODE || 'prepend').toLowerCase(),
 
   /** Upstream request timeout. Perch turns can be slow; streaming keeps the socket warm. */
-  requestTimeoutMs: int(process.env.PERCH_TIMEOUT_MS, 180_000),
+  requestTimeoutMs: int(process.env.PERCH_TIMEOUT_MS, 300_000),
+  /** SSE comment ping while upstream is silent; 0 disables. */
+  heartbeatMs: int(process.env.PERCH_HEARTBEAT_MS, 10_000),
   /** How many times to retry a 5xx/timeout before giving up. */
   maxRetries: int(process.env.PERCH_MAX_RETRIES, 2),
   /** Stop retrying a stream once this many bytes of answer text were already sent. */

@@ -284,6 +284,13 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+// Node's own request timeout (300s default on Node 18+) would kill long turns
+// before the upstream timeout does. Per-request abort is handled by the signal.
+server.requestTimeout = 0;
+server.timeout = 0;
+server.headersTimeout = 60_000;
+server.keepAliveTimeout = 65_000;
+
 server.listen(config.port, config.host, () => {
   console.log(`perch2api listening on http://${config.host}:${config.port}`);
   console.log(`  sessions discovered: ${store.size} (loaded ${loaded})`);

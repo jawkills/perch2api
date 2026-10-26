@@ -126,6 +126,20 @@ neutral instruction after the prefix so the model does not fall back to Saffron.
 
 Set `PERCH_LANE=chat` for Perch's full operator behaviour (persona included).
 
+## Timeouts and long turns
+
+Big agent turns are slow: 50k-token contexts take 20-45 s upstream, and Perch can go
+silent for tens of seconds mid-turn. Three layers are handled:
+
+| Layer | Setting |
+|---|---|
+| Gateway → upstream | `PERCH_TIMEOUT_MS` (default 300 s) |
+| Gateway → client | SSE `: keepalive` comment every `PERCH_HEARTBEAT_MS` (default 10 s) while upstream is silent |
+| Node HTTP server | `requestTimeout` / `timeout` disabled, so only the upstream timeout governs |
+
+Use `stream: true`. A non-stream request can only answer once the whole turn is done,
+so a client read timeout (nginx-style `499`) will cut it no matter what the gateway does.
+
 ## Vision
 
 Image parts pass straight through in OpenAI shape — `{"type":"image_url","image_url":{"url":"data:image/png;base64,..."}}` — and the model reads them (verified: 64x64 solid red PNG -> "Red" from `Qwen/Qwen3.8-Max`). Works on the default `code` lane, so no persona is attached. A top-level `images[]` array is ignored by the server; only message parts are read. `lane: vision` routes to a different model (`kimi-k2-5`) that returns no assistant text, so it is not used.
