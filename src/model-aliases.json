@@ -1,0 +1,272 @@
+[
+  {
+    "alias": "gemini-4-argon",
+    "optionId": "gemini-gemini-4-argon",
+    "group": "Oee",
+    "label": "Gemini 4 Argon"
+  },
+  {
+    "alias": "claude-opus-5.5",
+    "optionId": "anthropic-claude-opus-5-5",
+    "group": "Oee",
+    "label": "Claude Opus 5.5"
+  },
+  {
+    "alias": "gpt-6.1-sol",
+    "optionId": "azure-foundry-gpt-6-1-sol",
+    "group": "Oee",
+    "label": "GPT-6.1 Sol"
+  },
+  {
+    "alias": "kimi-3.1-pro",
+    "optionId": "openrouter-moonshotai-kimi-k3-1-pro",
+    "group": "Oee",
+    "label": "Kimi K3.1 Pro"
+  },
+  {
+    "alias": "deepseek-v4.1-flash-1017",
+    "optionId": "openrouter-deepseek-deepseek-v4-1-flash-1017",
+    "group": "Oee",
+    "label": "DeepSeek V4.1 Flash (1017)"
+  },
+  {
+    "alias": "gpt-6-luna",
+    "optionId": "azure-foundry-gpt-6-luna",
+    "group": "Oee",
+    "label": "GPT-6 Luna"
+  },
+  {
+    "alias": "claude-sonnet-5.5",
+    "optionId": "anthropic-claude-sonnet-5-5",
+    "group": "Oee",
+    "label": "Claude Sonnet 5.5"
+  },
+  {
+    "alias": "claude-haiku-5.5",
+    "optionId": "anthropic-claude-haiku-5-5",
+    "group": "Oee",
+    "label": "Claude Haiku 5.5"
+  },
+  {
+    "alias": "kimi-3",
+    "optionId": "azure-foundry-fw-kimi-k3",
+    "group": "Oee",
+    "label": "Kimi K3"
+  },
+  {
+    "alias": "grok-4.7",
+    "optionId": "azure-foundry-grok-4-7",
+    "group": "Oee",
+    "label": "Grok 4.7"
+  },
+  {
+    "alias": "grok-4.6",
+    "optionId": "bedrock-mantle-xai-grok-4-6",
+    "group": "Oee",
+    "label": "Grok 4.6"
+  },
+  {
+    "alias": "glm-5.3",
+    "optionId": "azure-foundry-fw-glm-5-3",
+    "group": "Oee",
+    "label": "GLM 5.3"
+  },
+  {
+    "alias": "glm-5.3-flash",
+    "optionId": "wandb-zai-org-glm-5-3-flash",
+    "group": "Oee",
+    "label": "GLM 5.3 Flash"
+  },
+  {
+    "alias": "deepseek-v4.1-flash",
+    "optionId": "dashscope-deepseek-v4-1-flash",
+    "group": "Oee",
+    "label": "DeepSeek V4.1 Flash"
+  },
+  {
+    "alias": "qwen-3.8-flash",
+    "optionId": "openrouter-qwen-qwen3-8-flash",
+    "group": "Oee",
+    "label": "Qwen 3.8 Flash"
+  },
+  {
+    "alias": "qwen-3.8-max",
+    "optionId": "openrouter-qwen-qwen3-8-max-0902",
+    "group": "Oee",
+    "label": "Qwen 3.8 Max"
+  },
+  {
+    "alias": "qwen-3.8",
+    "optionId": "wandb-qwen-qwen3-8-27b",
+    "group": "Oee",
+    "label": "Qwen 3.8 27B"
+  },
+  {
+    "alias": "minimax-m3",
+    "optionId": "wandb-minimax-m3",
+    "group": "Oee",
+    "label": "MiniMax M3"
+  },
+  {
+    "alias": "nemotron-ultra",
+    "optionId": "wandb-nvidia-nvidia-nemotron-3-ultra-550b-a55b",
+    "group": "Oee",
+    "label": "Nemotron Ultra"
+  },
+  {
+    "alias": "nemotron-lightning",
+    "optionId": "wandb-nvidia-nvidia-nemotron-3-5-lightning-30b-a3b",
+    "group": "Oee",
+    "label": "Nemotron 3.5 Lightning"
+  },
+  {
+    "alias": "deepseek-v4",
+    "optionId": "wandb-deepseek-ai-deepseek-v4-pro",
+    "group": "Oee",
+    "label": "DeepSeek V4 Pro 0813"
+  },
+  {
+    "alias": "deepseek-v4-flash-0731-262k",
+    "optionId": "wandb-deepseek-ai-deepseek-v4-flash-0731",
+    "group": "Oee",
+    "label": "DeepSeek V4 Flash 0731"
+  },
+  {
+    "alias": "qwen-3.7-plus",
+    "optionId": "fireworks-accounts-fireworks-models-qwen3p7-plus",
+    "group": "Oee",
+    "label": "Qwen 3.7 Plus"
+  },
+  {
+    "alias": "inkling",
+    "optionId": "fireworks-accounts-fireworks-models-inkling",
+    "group": "Oee",
+    "label": "inkling"
+  },
+  {
+    "alias": "beam-1.0",
+    "optionId": "wandb-reflection-beam-1-0-501b-a23b",
+    "group": "Oee",
+    "label": "Beam 1.0"
+  },
+  {
+    "alias": "kimi-2.7",
+    "optionId": "wandb-kimi-k2-7-code",
+    "group": "Oee",
+    "label": "Kimi K2.7 Code"
+  },
+  {
+    "alias": "glm-5.2",
+    "optionId": "wandb-zai-org-glm-5-2",
+    "group": "Oee",
+    "label": "GLM 5.2"
+  },
+  {
+    "alias": "gpt-6-sol",
+    "optionId": "azure-foundry-gpt-6-sol",
+    "group": "Oee",
+    "label": "GPT-6 Sol"
+  },
+  {
+    "alias": "gpt-5.6-sol",
+    "optionId": "azure-foundry-gpt-5-6-sol",
+    "group": "Oee",
+    "label": "GPT-5.6 Sol"
+  },
+  {
+    "alias": "gpt-5.6-terra",
+    "optionId": "azure-foundry-gpt-5-6-terra",
+    "group": "Oee",
+    "label": "GPT-5.6 Terra"
+  },
+  {
+    "alias": "gpt-5.6-luna",
+    "optionId": "azure-foundry-gpt-5-6-luna",
+    "group": "Oee",
+    "label": "GPT-5.6 Luna"
+  },
+  {
+    "alias": "laguna-s",
+    "optionId": "poolside-poolside-laguna-s-2-1",
+    "group": "Dee",
+    "label": "Laguna S 2.1"
+  },
+  {
+    "alias": "deepseek-flash-starter",
+    "optionId": "openrouter-deepseek-deepseek-v4-1-flash-1017-cloudflare",
+    "group": "Dee",
+    "label": "DeepSeek V4.1 Flash 1017 (Starter)"
+  },
+  {
+    "alias": "glm-5.3-flash-starter",
+    "optionId": "openrouter-z-ai-glm-5-3-flash",
+    "group": "Dee",
+    "label": "GLM 5.3 Flash (Starter)"
+  },
+  {
+    "alias": "beam-1.0-starter",
+    "optionId": "openrouter-reflection-beam-1-0-501b-a23b",
+    "group": "Dee",
+    "label": "Beam 1.0 (Starter)"
+  },
+  {
+    "alias": "deepseek-v4-flash-0731-1m",
+    "optionId": "dashscope-deepseek-v4-1-flash",
+    "group": "xCr",
+    "label": "deepseek-v4-flash-0731-1m"
+  },
+  {
+    "alias": "grok-4.5",
+    "optionId": "ai-gateway-xai-grok-4-5",
+    "group": "Z3e",
+    "label": "grok-4.5"
+  },
+  {
+    "alias": "muse-spark-1.1",
+    "optionId": "meta-muse-spark-1-1",
+    "group": "Z3e",
+    "label": "muse-spark-1.1"
+  },
+  {
+    "alias": "muse-spark-1.2",
+    "optionId": "meta-muse-spark-1-2",
+    "group": "Z3e",
+    "label": "muse-spark-1.2"
+  },
+  {
+    "alias": "muse-spark-1.2-contributor",
+    "optionId": "meta-muse-spark-1-2-contributor",
+    "group": "Z3e",
+    "label": "muse-spark-1.2-contributor"
+  },
+  {
+    "alias": "opus-4.8",
+    "optionId": "claude-code-oauth-claude-opus-4-8",
+    "group": "Z3e",
+    "label": "opus-4.8"
+  },
+  {
+    "alias": "gpt-5.5",
+    "optionId": "codex-oauth-gpt-5-5",
+    "group": "Z3e",
+    "label": "gpt-5.5"
+  },
+  {
+    "alias": "grok-4.3",
+    "optionId": "bedrock-mantle-xai-grok-4-3",
+    "group": "Z3e",
+    "label": "grok-4.3"
+  },
+  {
+    "alias": "grok-build",
+    "optionId": "grok-oauth-grok-4-5",
+    "group": "Z3e",
+    "label": "grok-build"
+  },
+  {
+    "alias": "grok-build-4.6",
+    "optionId": "grok-oauth-grok-4-6",
+    "group": "Z3e",
+    "label": "grok-build-4.6"
+  }
+]

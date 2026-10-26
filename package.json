@@ -1,0 +1,39 @@
+{
+  "name": "perch2api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OpenAI-compatible gateway in front of Perch (perchai.app) hosted-model inference",
+  "type": "module",
+  "main": "src/server.mjs",
+  "bin": {
+    "perch2api": "src/server.mjs"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "smoke": "node scripts/smoke.mjs",
+    "login": "node scripts/login.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "author": "jawkills",
+  "homepage": "https://github.com/jawkills/perch2api#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawkills/perch2api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jawkills/perch2api/issues"
+  },
+  "keywords": [
+    "openai-compatible",
+    "gateway",
+    "perch",
+    "llm",
+    "proxy",
+    "qwen",
+    "9router",
+    "reverse-engineering"
+  ]
+}
