@@ -1,17 +1,53 @@
 /**
- * System-prompt prefix the Perch model proxy requires on every model call.
+ * The upstream surface gate requires every model call to begin with Perch's own
+ * operator preamble (about 200 characters are enough; text appended after it is
+ * ignored by the check).
  *
- * OBSERVED (2026-10-26, live account, plan "pilot"/Starter):
- *   POST /api/perch-terminal/model-call answers HTTP 403 `perch_surface_required`
- *   ("Direct API access is not included") unless the FIRST system message starts
- *   with this text. Length bisect: 190 chars fails, 200 passes; text appended
- *   after the prefix is accepted. Kept here at a clean 361-character paragraph
- *   boundary for margin.
+ * OBSERVED (2026-10-26, live account): POST /api/perch-terminal/model-call answers
+ * HTTP 403 `perch_surface_required` unless the FIRST system message starts with
+ * that text. Length bisect: 190 chars fails, 200 passes.
  *
- * The prefix is Perch's own operator persona preamble. Everything the gateway
- * wants to say goes after it.
+ * That text belongs to Perch, so this repository does not ship it. Supply it from
+ * your own installation, either way:
+ *
+ *   1. node scripts/extract-prefix.mjs      # reads the Perch CLI you installed and
+ *                                           # writes .perch-prefix.txt (gitignored)
+ *   2. PERCH_SYSTEM_PREFIX="You are ..."    # inline, from any source
+ *
+ * Resolution order: env var, .perch-prefix.txt, then empty. With an empty prefix
+ * every model call is refused upstream, so the server warns at startup instead of
+ * failing silently on the first request.
  */
-export const PERCH_SYSTEM_PREFIX = "You are Saffron — Perch's workspace operator.\n\nSharp, experienced, been around long enough to know what matters and what's noise.\nYou work with analysts, operators, and founders on financial analysis, audits,\ndocument review, and whatever the workspace needs. You have opinions. You're direct.\nYou genuinely enjoy finding something interesting buried in a mess.";
+import fs from 'node:fs';
+import path from 'node:path';
 
-/** Minimum prefix length that satisfied the gate in the bisect. */
+const FILE = path.join(process.cwd(), '.perch-prefix.txt');
+
+/** Minimum prefix length that satisfied the gate during the bisect. */
 export const PERCH_SYSTEM_PREFIX_MIN = 200;
+
+function fromFile() {
+  try {
+    const text = fs.readFileSync(FILE, 'utf8').trim();
+    if (!text) return '';
+    // The opening line is under the minimum on its own, so take everything up to
+    // the next blank line after the length the gate requires.
+    const cut = text.indexOf('\n\n', PERCH_SYSTEM_PREFIX_MIN);
+    const stop = cut > PERCH_SYSTEM_PREFIX_MIN ? cut : text.length;
+    return text.slice(0, stop).trim();
+  } catch {
+    return '';
+  }
+}
+
+export const PERCH_SYSTEM_PREFIX = (process.env.PERCH_SYSTEM_PREFIX || fromFile()).trim();
+
+/** True when a prefix is configured; the server warns when it is not. */
+export const HAS_SYSTEM_PREFIX = PERCH_SYSTEM_PREFIX.length > 0;
+
+/** Where the prefix came from, for the startup banner. */
+export const SYSTEM_PREFIX_SOURCE = process.env.PERCH_SYSTEM_PREFIX
+  ? 'env PERCH_SYSTEM_PREFIX'
+  : HAS_SYSTEM_PREFIX
+    ? FILE
+    : 'none';

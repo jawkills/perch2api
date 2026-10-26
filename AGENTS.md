@@ -26,6 +26,7 @@ node scripts/smoke.mjs               # end-to-end checks against a running insta
 node probes/probe-vision.mjs         # vision wire-format matrix (needs a live session)
 node probes/extract.cjs --out re --dump-sources   # rebuild the RE workspace
 node scripts/login.mjs               # PKCE login -> cli-auth-session.json
+node scripts/extract-prefix.mjs      # derive .perch-prefix.txt from a local Perch CLI
 node scripts/login.mjs --dry-run --no-open   # print the OAuth URL without waiting
 PORT=8800 node src/server.mjs        # alternate port
 ```
@@ -57,7 +58,8 @@ const response = await fetch(`${baseUrl}/api/perch-terminal/model-call`, {
 
 **NEVER** touch or commit:
 
-- `.env`, `accounts/`, any `cli-auth-session.json` (live credentials).
+- `.env`, `.perch-prefix.txt`, `accounts/`, any `cli-auth-session.json` (live credentials, and
+  the derived prefix which is Perch's text, not ours to publish).
 - `re/cli/package/node_modules/`, `re/run1/`, `data/*.txt` — regenerable bulk.
 - The extracted third-party source in `re/src-main/` is reference material: read it, never edit it.
 

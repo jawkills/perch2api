@@ -46,10 +46,15 @@ The full contract, the surface gate, and the plan limits are documented in
 ## Quick start
 
 ```bash
-cd D:/Hermes-Project/perch2api
-cp .env.example .env          # optional; every value has a default
-node src/server.mjs           # http://127.0.0.1:8790
+git clone https://github.com/jawkills/perch2api && cd perch2api
+npm i -g perchai-cli     # you need your own Perch client for the session + gate prefix
+node scripts/extract-prefix.mjs   # derives .perch-prefix.txt from that install
+node src/server.mjs               # http://127.0.0.1:8790
 ```
+
+The gate prefix is **not** in this repository: it is Perch's own operator preamble, so each user
+derives it from the client they installed (`scripts/extract-prefix.mjs`) or supplies it with
+`PERCH_SYSTEM_PREFIX`. Without it every call is refused upstream with `perch_surface_required`.
 
 The gateway auto-discovers a logged-in Perch session from, in order:
 
@@ -177,9 +182,9 @@ plain HTTP with no vendor headers.
   verbatim, including `perch.limit`).
 - **PT quota.** Inference is metered in Perch credits (`1 PT = $0.001`). `GET /v1/account`
   shows the meter.
-- **Surface gate.** Upstream refuses requests that do not look like a Perch turn. The
-  gateway satisfies it by prepending Perch's 361-character system-prompt preamble unless the
-  caller already starts their system message with it.
+- **Surface gate.** Upstream refuses requests that do not look like a Perch turn. The gateway
+  prepends the preamble from `.perch-prefix.txt` / `PERCH_SYSTEM_PREFIX` unless the caller
+  already starts their system message with it.
 - **No turn tickets needed.** `x-perch-turn-ticket` is optional for this endpoint; the
   gateway deliberately skips minting, which also dodges the ticket rate limit.
 
@@ -198,6 +203,7 @@ perch2api/
 │   └── model-aliases.json  alias -> registry option id table
 ├── scripts/
 │   ├── login.mjs           PKCE login, writes cli-auth-session.json
+│   ├── extract-prefix.mjs  derives the gate prefix from your Perch install
 │   └── smoke.mjs           end-to-end checks against a running instance
 ├── docs/RE-FINDINGS.md     reverse-engineering report (observed/inferred/unknown)
 └── re/                     the artifacts the findings came from

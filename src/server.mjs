@@ -10,6 +10,7 @@
  *   GET  /health
  */
 import http from 'node:http';
+import { PERCH_SYSTEM_PREFIX, HAS_SYSTEM_PREFIX, SYSTEM_PREFIX_SOURCE } from './perch-prefix.mjs';
 import { config } from './config.mjs';
 import { SessionStore } from './session.mjs';
 import { buildRequestBody, callModel, fetchAccount, PerchError } from './gateway.mjs';
@@ -291,6 +292,11 @@ server.listen(config.port, config.host, () => {
   }
   if (!config.apiKey) console.log('  auth: DISABLED (set PERCH2API_KEY to require a bearer key)');
   console.log(`  upstream: ${config.appUrl}  UA: ${config.userAgent}`);
+  console.log(`  gate prefix: ${SYSTEM_PREFIX_SOURCE} (${PERCH_SYSTEM_PREFIX.length} chars)`);
+  if (!HAS_SYSTEM_PREFIX) {
+    console.warn('  WARNING: no gate prefix configured — upstream will answer 403 perch_surface_required.');
+    console.warn('           run `node scripts/extract-prefix.mjs` or set PERCH_SYSTEM_PREFIX.');
+  }
 });
 
 for (const signal of ['SIGINT', 'SIGTERM']) {
