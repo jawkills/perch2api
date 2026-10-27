@@ -423,3 +423,25 @@ Image parts use the OpenAI shape inside a user message:
 `data:` URLs are accepted, so no image hosting is needed. The gateway preserves
 `image_url` / `input_image` / raw `{type:"image", mimeType, data}` parts and everything else
 continues to be flattened to text.
+
+### 5.2 Is `qwen-3.8-max` really Qwen3.8 Max (0902)?
+
+Three independent observations, one gap:
+
+| Evidence | Value | Weight |
+|---|---|---|
+| Alias table (CLI bundle) | `qwen-3.8-max` -> optionId `openrouter-qwen-qwen3-8-max-0902` | OBSERVED |
+| Perch registry entry for that optionId | `providerId: "openrouter"`, `modelId: "qwen/qwen3.8-max-0902"`, `label: "Qwen 3.8 Max 0902"`, `contextWindow: 1_000_000`, `maxOutputTokens: 131_072`, `openRouterProviderOnly: ["alibaba"]`, `modality: "vision"` | OBSERVED (source) |
+| OpenRouter catalogue | `qwen/qwen3.8-max-0902` — "Qwen: Qwen3.8 Max (0902)", created 2026-09-03, 1M ctx, $2/$6 per M, text/image/video | OBSERVED |
+| Wire `model` field | `Qwen/Qwen3.8-Max` (no build tag) | OBSERVED |
+| Model self-report | blocked: upstream answers "The model is busy right now" / 403 `not_authorized` | UNVERIFIED |
+
+So the pin resolves to the 0902 build by construction (option id -> registry `modelId`),
+but **the wire never echoes the build tag**, and the model cannot be trusted to name its own
+release. To close it behaviourally, run `probes/probe-qwen-identity.mjs`: it dumps every frame
+key, the provider/model markers, and asks the model for its internal id, and can be pointed at
+another option id (e.g. `openrouter-qwen-qwen3-8-flash`) for a differential.
+
+Discrepancy worth knowing: Perch's announcement advertises 262K context, the registry declares
+1M. Whether the promo caps the window server-side is UNKNOWN; requests above the cap would fail
+regardless of the model's own limit.
